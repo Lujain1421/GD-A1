@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    public GameObject Sphere;
+    [SerializeField]public GameObject shpere;
+
+    void Update()
 
     // Start is called before the first frame update
-    void Start()
     {
-        
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+        SpawnShpere();
+        InvokeRepeating("SpawnShpere", 0.0f, 1.0f);
+      }
+
+      if (Input.GetKeyUp(KeyCode.Space))
+      {
+        CancelInvoke();
+      }
+
     }
 
     // Update is called once per frame
-    void Update()
+    void SpawnShpere()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            shoot();
-            InvokeRepeating("Shoot", 0.0f,0.5f);
-        }
-       if (Input.GetKeyUp(KeyCode.A))
-        {
-            CancelInvoke();
-        }
+        Instantiate(shpere,transform.position,Quaternion.identity);
+    }
     
-    }
-    void shoot()
-    {
-        Instantiate(Sphere, transform.position,Quaternion.identity);
-    }
 }
